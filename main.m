@@ -39,27 +39,19 @@ for k=1:10
         distance = distance_fn(train_data(:,1:3),test_data(i,1:3));
         distance = distance';
         
-        
-        
         # 3.2 Add the distance and the index of the example to an ordered collection
         
-        
+        %Stockage des indices et distances
         for j=1:rows
           neighbor_distances_and_indices(j,1)=distance(j,1);
           neighbor_distances_and_indices(j,2)=j;
         end
-
-         
-
-
-        
-        # 4. Sort the ordered collection of distances and indices from
-        # smallest to largest (in ascending order) by the distances
+        # 4. Tri de tableau par distance
+        # Tri Croissant
         sorted_neighbor_distances_and_indices = sortrows(neighbor_distances_and_indices,1);
         
-        # 5. Pick the first K entries from the sorted collection
+        # 5. Recuperation de  K entreés a partir de la collection trié
         k_nearest_distances_and_indices = sorted_neighbor_distances_and_indices(1:k,1:2);
-        
         
         # 6. Get the labels of the selected K entries
         k_nearest_labels = zeros(k,1);
@@ -121,13 +113,8 @@ for k=1:10
     Accuracies(k)=accuracy;
     Precisions(k)=precision;
     Recalls(k)=recall;
-    
-    
   
-
 end
-
-
     Accuracies
     Precisions
     Recalls
@@ -136,7 +123,7 @@ subplot(3 ,1 ,1);
 plot(k_values,Accuracies)                  % plot it
 [~,imn]=min(Accuracies);            % get min/max locations
 [~,imx]=max(Accuracies);
-hold on                    % hold the plot to add to it
+hold on      
 plot(k_values([imn;imx]),Accuracies([imn;imx]),'or')  % option one with given locations
 ix=[imn;imx];                         % second option to build index
 title('Accuracy values per K-neignbours')
@@ -153,7 +140,7 @@ plot(k_values,Precisions)                  % plot it
 hold on                    % hold the plot to add to it
 plot(k_values([imn;imx]),Precisions([imn;imx]),'or')  % option one with given locations
 ix=[imn;imx];                         % second option to build index
-title('Precisicion values per K-neignbours')
+title('Precision values per K-neignbours')
 xlabel('K-Values') 
 ylabel('Precisicions')
 plot(k_values(ix),Precisions(ix),'xk')                % plot that way different syhmbol
